@@ -1,0 +1,49 @@
+---
+title: "Cleaning the Combined BI And Survey Career Data"
+author: "Your Name Here"
+output:
+  html_document:
+    date: "`r format(Sys.time(), '%d %B, %Y')`"
+    code_folding: hide
+    df_print: paged
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    toc_float: yes
+    code_download: true
+  word_document:
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE)
+
+#package intialization
+rm(list = ls()) # clear global environment
+graphics.off() # close all graphics
+if(require(pacman)==FALSE) install.packages("pacman")
+pacman::p_load(DataExplorer,tidyverse,readxl,zoo,stargazer,kableExtra,skimr,plotly,ggpubr,vtable,tm)
+```
+
+# Introduction and Purpose
+
+Write something here
+
+# Data Sources
+
+Write something here
+
+## Read in the data
+
+```{r}
+data=readRDS(file = "FSB_BI_Survey_2019_2021.rds")
+```
+
+# Data Preprocessing
+
+Describing each data preprocessing step with small chunks of code, output where necessary, and documentation
+
+# The rest of your document
+
+Add sections and subsections as necessary to guide your analysis
+
