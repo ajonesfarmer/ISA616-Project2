@@ -10,7 +10,7 @@ The data are anonymized, however it is possible that if you look hard enough, yo
 
 ## Data Sources
 
-You have three years of data representing FSB graduates, including graduates in 2019, 2020, and 2021.  The dataset provided had 42 variables.  The source is either derived, from the Oracle Business Intelligence Enterprise Edition (OBIEE) maintained by Miami adminsitration, or from the self reported senior survey.
+You have three years of data representing FSB graduates, including graduates in 2019, 2020, and 2021.  The dataset provided had 42 variables.  The source is either derived by me during data cleaning/mergin, from the Oracle Business Intelligence Enterprise Edition (OBIEE) maintained by Miami adminsitration, or from the self reported senior survey.  I have cleaned and merged the files into one file.  
 
 1.  nmajor: numeric,derived, the number of majors 
 2.  major1: text, OBIEE, first major
@@ -54,6 +54,10 @@ You have three years of data representing FSB graduates, including graduates in 
 40.  survey_pref_loc: text, survey, student reported whether working in preferred location
 41.  survey_salary: numeric, survey, student reported salary
 42.  survey_state: text, survey, student reported state in which job is located
+
+# The rest of this document
+
+Below I include introductory material on using GitHub for your convenience.
 
 # :wave: The Basics of GitHub 
 
