@@ -1,0 +1,170 @@
+---
+title: "Flex Dashboard"
+author: "Maddie Banyas"
+date: "10/20/2021"
+output: 
+    flexdashboard::flex_dashboard:
+    orientation: columns 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE)
+
+#package initialization
+rm(list = ls()) # clear global environment
+graphics.off() # close all graphics
+if(require(pacman)==FALSE) install.packages("pacman")
+pacman::p_load(DataExplorer,tidyverse,readxl,zoo,stargazer,kableExtra,skimr,plotly,ggpubr,vtable,tm, flexdashboard, fontawesome)
+
+#load data
+data=readRDS("FSB_BI_Survey_2019_2021.rds")
+```
+
+Insights {data-orientation=columns}
+=================================================================
+
+## Overview of the Data
+
+### type text here
+
+## Insights
+
+### type text here
+
+## Recommendations
+
+
+Page 2: Survey Overview {data-orientation=columns}
+=================================================================
+
+Overview of Survey responses 
+
+column {data-width = 300}
+-----------------------------------------------------------------
+
+### Response Rate
+
+```{r}
+
+```
+
+
+### Responses by Primary Major
+
+```{r}
+
+```
+
+column {data-width = 700}
+-----------------------------------------------------------------
+
+### Placement Status
+
+```{r}
+
+```
+
+Page 3: Major Breakdown {data-orientation=columns}
+=================================================================
+
+column {data-width = 500}
+-----------------------------------------------------------------
+
+### Placement Rate by Major
+
+```{r}
+
+```
+
+column {data-width = 500}
+-----------------------------------------------------------------
+
+### Salary by Major
+
+```{r}
+
+```
+
+
+Page 4: Geographic Breakdown {data-orientation=columns}
+=================================================================
+
+column {data-width = 500}
+-----------------------------------------------------------------
+
+### Where each majors are going
+
+```{r}
+
+```
+
+column {data-width = 500}
+-----------------------------------------------------------------
+
+### The four Cs
+
+```{r}
+
+```
+
+Page 5: Trends {data-orientation=columns}
+=================================================================
+
+column {data-width = 500}
+-----------------------------------------------------------------
+
+### Salary Trends by Major
+
+```{r}
+
+```
+
+column {data-width = 500}
+-----------------------------------------------------------------
+
+### Salary Trends by Gender
+
+```{r}
+
+```
+
+
+Page 6: Attributes{data-orientation=columns}
+=================================================================
+
+column {data-width = 500}
+-----------------------------------------------------------------
+
+### GPA
+
+```{r}
+
+```
+
+column {data-width = 500}
+-----------------------------------------------------------------
+
+### Graph Number 2
+
+Page 7: School Comparisons {data-orientation=columns}
+=================================================================
+
+column {data-width = 500}
+-----------------------------------------------------------------
+
+### Compare Placement rates
+
+```{r}
+
+```
+
+
+column {data-width = 500}
+-----------------------------------------------------------------
+
+### Compare starting salary 
+
+```{r}
+
+```
+
