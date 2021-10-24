@@ -1,6 +1,6 @@
 ---
-title: "Flex Dashboard"
-author: "Maddie Banyas"
+title: "FSB Placement Data Dashboard"
+author: "Group 1"
 date: "10/20/2021"
 output: 
     flexdashboard::flex_dashboard:
@@ -33,8 +33,7 @@ Insights {data-orientation=columns}
 
 ## Recommendations
 
-
-Page 2: Survey Overview {data-orientation=columns}
+Survey Overview {data-orientation=columns}
 =================================================================
 
 Overview of Survey responses 
@@ -64,10 +63,40 @@ column {data-width = 700}
 
 ```
 
-Page 3: Major Breakdown {data-orientation=columns}
+### Top 10 Employers Overall
+
+```{r}
+
+```
+
+
+Major Breakdown {data-orientation=columns}
 =================================================================
 
-column {data-width = 500}
+column {data-width = 600}
+-----------------------------------------------------------------
+
+### Top 10 Employers by Major
+
+```{r}
+
+```
+
+
+### Salary by Major
+
+```{r}
+
+```
+
+### Average GPA by major
+
+```{r}
+
+```
+
+
+column {data-width = 400}
 -----------------------------------------------------------------
 
 ### Placement Rate by Major
@@ -76,39 +105,62 @@ column {data-width = 500}
 
 ```
 
-column {data-width = 500}
+### COVID Analysis
+
+```{r}
+
+```
+
+### Insights
+This page displays the top 10 employers of FSB Students, along with the number of students that each of these companies hired as well as the breakdown of the majors for those students that were hired by each company. We have also included a graph that shows the amount of students in each major that got a job, as well as the average GPA and Salary by each major over all of the data.
+
+Geographic Breakdown {data-orientation=columns}
+=================================================================
+
+column {data-width = 600}
 -----------------------------------------------------------------
 
-### Salary by Major
+### Placement Map
+
+```{r}
+
+```
+
+column {data-width = 400}
+-----------------------------------------------------------------
+
+### Industies in each City 
+
+```{r}
+
+```
+
+### Analysis of the 4 C's
 
 ```{r}
 
 ```
 
 
-Page 4: Geographic Breakdown {data-orientation=columns}
+### Insights
+
+This page contains a map that displays where students end up geographically in the continental United States.  Darker states represent a higher concentration of graduates in that state. The top state for employment was XX with XX students or XX% of all hires, followed by XX (XX students XX%), XX (XX students XX%) , XX (XX students XX%) , and XX (XX students XX%) respectively in the top 5. This analysis also includes a look at which cities contain which industries and an indepth analysis of the 4 C's (Cleveland, Columbus, Cincinnati, and Chicago)
+
+Trends {data-orientation=columns}
 =================================================================
 
 column {data-width = 500}
 -----------------------------------------------------------------
 
-### Where each majors are going
+### Job Placement Trends
 
 ```{r}
 
 ```
 
-column {data-width = 500}
------------------------------------------------------------------
+### Insights
 
-### The four Cs
-
-```{r}
-
-```
-
-Page 5: Trends {data-orientation=columns}
-=================================================================
+This page analyzes job placement trends over time for each major as well as for each gender. We also conducted a COVID analysis to understand the impact the pandemic had on the salary of FSB students. 
 
 column {data-width = 500}
 -----------------------------------------------------------------
@@ -119,20 +171,22 @@ column {data-width = 500}
 
 ```
 
-column {data-width = 500}
------------------------------------------------------------------
-
 ### Salary Trends by Gender
 
 ```{r}
 
 ```
 
+### COVID Analysis
 
-Page 6: Attributes{data-orientation=columns}
+```{r}
+
+```
+
+Student Attributes {data-orientation=columns}
 =================================================================
 
-column {data-width = 500}
+column {data-width = 700}
 -----------------------------------------------------------------
 
 ### GPA
@@ -141,30 +195,51 @@ column {data-width = 500}
 
 ```
 
-column {data-width = 500}
+### Internships
+
+```{r}
+
+```
+
+
+column {data-width = 300}
 -----------------------------------------------------------------
 
-### Graph Number 2
+### Bell Curve
 
-Page 7: School Comparisons {data-orientation=columns}
+```{r}
+
+```
+
+### Insights
+This page analyzes the attributes that have an impact of job placement for FSB students. Through this analysis we identified thresholds for student employment as well has the impact internships have on job placement. We identified that students with a GPA less than XXX are not likely to get hired. We also identified if there was a correlation between the number of internships a student has and there job placement and starting salary. 
+
+School Comparisons {data-orientation=columns}
 =================================================================
 
 column {data-width = 500}
 -----------------------------------------------------------------
 
-### Compare Placement rates
+### Placement Rates
 
 ```{r}
 
 ```
 
+### Starting Salary
+
+```{r}
+
+```
 
 column {data-width = 500}
 -----------------------------------------------------------------
 
-### Compare starting salary 
+### Student Locations 
 
 ```{r}
 
 ```
 
+### Insights
+This page focuses on the comparisons of FSB to other schools. To conduct this comparison we looked at the difference in placement rate, starting salary, and location. 
