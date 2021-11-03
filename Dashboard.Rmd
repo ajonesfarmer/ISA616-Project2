@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE)
 rm(list = ls()) # clear global environment
 graphics.off() # close all graphics
 if(require(pacman)==FALSE) install.packages("pacman")
-pacman::p_load(DataExplorer,tidyverse,readxl,zoo,stargazer,kableExtra,skimr,plotly,ggpubr,vtable,tm, flexdashboard, fontawesome)
+pacman::p_load(DataExplorer,tidyverse,readxl,zoo,stargazer,kableExtra,skimr,plotly,ggpubr,vtable,tm, flexdashboard, fontawesome,fastDummies)
 
 #load data
 data=readRDS("FSB_BI_Survey_2019_2021.rds")
@@ -313,7 +313,6 @@ column {data-width = 400}
 ### Bottom 20% Median Income, also considering adding internship placement % here as well
 
 ```{r, echo=FALSE}
-library(fastDummies)
 data2<-dummy_columns(data, select_columns = c("GPA.Range"), 
                   remove_first_dummy = TRUE, 
                   remove_selected_columns = TRUE)
