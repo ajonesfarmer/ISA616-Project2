@@ -20,19 +20,6 @@ pacman::p_load(DataExplorer,tidyverse,readxl,zoo,stargazer,kableExtra,skimr,plot
 data=readRDS("FSB_BI_Survey_2019_2021.rds")
 ```
 
-Insights {data-orientation=columns}
-=================================================================
-
-## Overview of the Data
-
-### type text here
-
-## Insights
-
-### type text here
-
-## Recommendations
-
 Survey Overview {data-orientation=columns}
 =================================================================
 
@@ -41,32 +28,53 @@ Overview of Survey responses
 column {data-width = 300}
 -----------------------------------------------------------------
 
-### Response Rate
-
-```{r}
-
-```
-
-
 ### Responses by Primary Major
 
-```{r}
-
+```{r, echo=FALSE}
+p=ggplot(data, aes(x=reorder(major1, major1, function(x)-length(x))))+
+  geom_bar(color="black", fill="steelblue")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle=90))+
+  xlab("Major")+
+  ylab("Count")
+ggplotly(p)
 ```
+
+### Top 10 Employers Overall
+
+```{r, echo=FALSE}
+top_employers = data.frame(table(data$survey_company))
+top_employers = top_n(top_employers, n=10, Freq)
+plot1=ggplot(top_employers, 
+             aes(x=reorder(Var1, -Freq), y=Freq, 
+                 text = paste("Employer:", Var1, "\n Number Of Students Hired :", Freq)))+ 
+  geom_bar(position="stack", stat="identity")+
+  labs(x = "Employer", y = "Number of Students Hired",
+       title = "Top Employers by Number of Students Hired") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1),
+        plot.title = element_text(face = "bold", hjust = 0.5))
+ggplotly(plot1, tooltip = "text") 
+```
+
+### Insights      
+
+Based off the first graph, which displays the number of responses by student's primary major, we can clearly see the majority of respondents major in finance, accounting, or marketing. This makes sense as these tend to be some of the more popular majors within the Farmer School of Business. The next graph Looks at students within those majors and counts the number of job offers they received. 
+
 
 column {data-width = 700}
 -----------------------------------------------------------------
 
 ### Placement Status
 
-```{r}
-
-```
-
-### Top 10 Employers Overall
-
-```{r}
-
+```{r, echo=FALSE}
+data$survey_offers[is.na(data$survey_offers)] <- "0"
+p=ggplot(data,aes(x=reorder(major1,major1, function(x)-length(x)),fill=survey_offers))+
+geom_bar(color="steelblue")+
+theme_bw()+
+theme(axis.text.x = element_text(angle = 90))+
+xlab("Major")+
+ylab("Count")
+ggplotly(p)
 ```
 
 
@@ -76,43 +84,66 @@ Major Breakdown {data-orientation=columns}
 column {data-width = 600}
 -----------------------------------------------------------------
 
-### Top 10 Employers by Major
-
-```{r}
-
-```
-
-
 ### Salary by Major
 
-```{r}
-
+```{r, echo=FALSE}
+avgs = aggregate(x = data$survey_salary,                
+          by = list(data$major1),             
+          FUN = mean, na.rm = TRUE)          
+plot1=ggplot(avgs, 
+             aes(x=reorder(Group.1, -x), y=x, 
+                 text = paste("Major:", Group.1, "\n Average Salary:", round(x, 2))))+ 
+  geom_bar(position="stack", stat="identity")+
+  labs(x = "Major", y = "Average Salary",
+       title = "Average Salary by Major")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1),
+        plot.title = element_text(face = "bold", hjust = 0.5))
+ggplotly(plot1, tooltip = "text") 
 ```
 
-### Average GPA by major
+### Percentage of Students in Top GPA Range by Major
 
-```{r}
-
+```{r, echo=FALSE}
+topgpa<-data[(data$GPA.Range == "3.50 - 4.00"),]
+topgpa_df= data.frame(table(topgpa$major1))
+major_counts = data.frame(table(data$major1))
+topgpa_df$major_counts <- major_counts$Freq
+plot1=ggplot(topgpa_df, 
+             aes(x=reorder(Var1, -(Freq/major_counts)), y= Freq/major_counts), 
+                 text = paste("Major:", Var1, "\n Percentage Of Students With GPA >= 3.5:", Freq/major_counts))+ 
+  geom_bar(position="stack", stat="identity")+
+  labs(x = "Major", y = "Percentage of Students with GPA >= 3.5",
+       title = "Percentage of Students in Top GPA Range (3.5-4.0) by Major")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1),
+        plot.title = element_text(face = "bold", hjust = 0.5))
+ggplotly(plot1, tooltip = "text") 
 ```
 
 
 column {data-width = 400}
 -----------------------------------------------------------------
 
-### Placement Rate by Major
+### Full/Part Time Placement Rate by Major
 
-```{r}
-
+```{r, echo=FALSE}
+jobs<-data[(data$survey_plans == "accepted fulltime job" | data$survey_plans == "accepted parttime job"),]
+jobs_df= data.frame(table(jobs$major1))
+major_counts = data.frame(table(data$major1))
+jobs_df$major_counts <- major_counts$Freq
+plot1=ggplot(jobs_df, 
+             aes(x=reorder(Var1, -(Freq/major_counts)), y= Freq/major_counts), 
+                 text = paste("Major:", Var1, "\n Percentage of Students With Full/Part Time Job:", Freq/major_counts))+ 
+  geom_bar(position="stack", stat="identity")+
+  labs(x = "Major", y = "Percentage of Students With Full/Part Time Job",
+       title = "Full/Part Time Job Placement Percentages by Major")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1),
+        plot.title = element_text(face = "bold", hjust = 0.5))
+ggplotly(plot1, tooltip = "text") 
 ```
 
-### COVID Analysis
-
-```{r}
-
-```
 
 ### Insights
-This page displays the top 10 employers of FSB Students, along with the number of students that each of these companies hired as well as the breakdown of the majors for those students that were hired by each company. We have also included a graph that shows the amount of students in each major that got a job, as well as the average GPA and Salary by each major over all of the data.
+This page displays the top 10 employers of FSB Students, along with the number of students that each of these companies hired. We have also included a graph that shows the amount of students in each major that got a job, as well as the average GPA and Salary by each major over all of the data.
 
 Geographic Breakdown {data-orientation=columns}
 =================================================================
@@ -122,23 +153,66 @@ column {data-width = 600}
 
 ### Placement Map
 
-```{r}
+```{r, echo=FALSE}
+pacman::p_load(naniar, ggmap, ggplot2, ggiraph, mapview)
 
+data$citystate <- paste(data$survey_city, data$survey_state)
+library(naniar)
+data <- data %>%
+  replace_with_na(replace = list(citystate = c("NA NA", "NA CA", "NA CO", "NA CT", "NA GA", "NA IL", "NA IN", "NA MA", "NA NY", "NA OH", "NA UT", "TBD", "NA Other", "NA MN", "International", "International BZ", "International IN", "International TR", "Remote OH", "Remote Other"
+ )))
+data$citystate[data$citystate== "D.C. DC"] <- "Washington D.C."
+data$citystate[data$citystate== "D.C. "] <- "Washington D.C."
+data$citystate[data$citystate== "Dublin "] <- "Dublin OH"
+data$citystate[data$citystate== "Middletown Oh
+"] <- "Middletown OH"
+data$citystate[data$citystate== "New York NY "] <- "New York NY"
+data$citystate[data$citystate== "New York OH"] <- "New York NY"
+data$citystate[data$citystate== "Chicago OH"] <- "Chicago IL"
+data$citystate[data$citystate== "Chicago US"] <- "Chicago IL"
+data$citystate[data$citystate== "Cincinnati NA"] <- "Cincinnati OH"
+data$citystate[data$citystate== "Cincinnati OH "] <- "Cincinnati OH"
+data$citystate[data$citystate== "Cleveland Oh"] <- "Cleveland OH"
+data$citystate[data$citystate== "Cleveland OH "] <- "Cleveland OH"
+data$citystate[data$citystate== "Columbus OH "] <- "Columbus OH"
+data$citystate[data$citystate== "Detroit OH"] <- "Detroit MI"
+data$citystate[data$citystate== "Indianapolis IL"] <- "Indianapolis IN"	
+
+cities <- data %>% count(data$citystate)
+cities <- head(cities, - 1)
+cities = as.data.frame(cities, stringsAsFactors = FALSE)
+
+library(ggmap)
+library(ggplot2)
+library(ggiraph)
+library(ggmap)
+library(mapview)
+register_google(key = "AIzaSyD3OBbzHmL1rXtnavOLGANVIIveIst_xCE", write = TRUE)
+geocodes <- geocode(as.character(cities$`data$citystate`))
+cities_with_geocodes <- data.frame(cities[,1:2],geocodes)
+
+us <- c(left = -125, bottom = 25.75, right = -67, top = 49)
+map <- get_stamenmap(us, zoom = 5, maptype = "toner-lite") %>% ggmap() +
+  geom_point_interactive(data = cities_with_geocodes,
+             aes(x = lon, y = lat, size = n),
+             color = "red", alpha = 0.5)
+map
 ```
 
 column {data-width = 400}
 -----------------------------------------------------------------
 
-### Industies in each City 
-
-```{r}
-
-```
-
 ### Analysis of the 4 C's
 
-```{r}
+```{r, echo=FALSE}
+FourCs <- subset(data, data$citystate== c('Columbus OH') | data$citystate==c('Cincinnati OH') | data$citystate==c('Cleveland OH') | data$citystate==c('Chicago IL'))
 
+p=ggplot(FourCs, aes(x = citystate))+
+  geom_bar(color="steelblue", fill="steelblue")+
+  xlab("City")+
+  ylab("Number of Students")+
+  theme_bw()
+ggplotly(p)
 ```
 
 
@@ -152,10 +226,21 @@ Trends {data-orientation=columns}
 column {data-width = 500}
 -----------------------------------------------------------------
 
-### Job Placement Trends
+### Salary Trends by Year
 
-```{r}
-
+```{r, echo=FALSE}
+avgs = aggregate(x = data$survey_salary,                
+          by = list(data$year.x),             
+          FUN = mean, na.rm = TRUE)          
+plot1=ggplot(avgs, 
+             aes(x=reorder(Group.1, x), y=x, 
+                 text = paste("Year:", Group.1, "\n Average Salary:", round(x, 2))))+ 
+  geom_bar(position="stack", stat="identity")+
+  labs(x = "Major", y = "Average Salary",
+       title = "Average Salary Over Time")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1),
+        plot.title = element_text(face = "bold", hjust = 0.5))
+ggplotly(plot1, tooltip = "text") 
 ```
 
 ### Insights
@@ -165,54 +250,103 @@ This page analyzes job placement trends over time for each major as well as for 
 column {data-width = 500}
 -----------------------------------------------------------------
 
-### Salary Trends by Major
-
-```{r}
-
-```
-
 ### Salary Trends by Gender
 
-```{r}
-
+```{r, echo=FALSE}
+#Need to summarize over time
+avgs = aggregate(x = data$survey_salary,                
+          by = list(data$Gender),             
+          FUN = mean, na.rm = TRUE)          
+plot1=ggplot(avgs, 
+             aes(x=reorder(Group.1, x), y=x, 
+                 text = paste("Major:", Group.1, "\n Average Salary:", round(x, 2))))+ 
+  geom_bar(position="stack", stat="identity")+
+  #scale_y_continuous(limits = c(50000, 60000))+
+  labs(x = "Major", y = "Average Salary",
+       title = "Average Salary by Major")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1),
+        plot.title = element_text(face = "bold", hjust = 0.5))
+ggplotly(plot1, tooltip = "text") 
 ```
 
 ### COVID Analysis
 
-```{r}
+Students that graduated at the beginning of COVID (2019 Graduate) had a higher job placement percentage (68% in 2019 vs. 55% in 2020) but were paid lower salaries ($4,359.25 lower on average) than students that graduated a year later in 2020.  
 
+```{r}
+#need segment of line graph highlinginh time of COVID showing salary and placement trends
 ```
 
 Student Attributes {data-orientation=columns}
 =================================================================
 
-column {data-width = 700}
+column {data-width = 600}
 -----------------------------------------------------------------
 
-### GPA
 
-```{r}
+### Relationship between GPA and Starting Salary
 
+```{r,echo=FALSE}
+p = ggplot(data,aes(x = factor(GPA.Range),y=survey_salary))+
+  geom_bar(stat="summary",fun = "median")+
+  theme_bw()+
+  theme(axis.text.x=element_text(angle=90))
+p
 ```
 
-### Internships
 
-```{r}
+### Relationship between Internship count and starting salary
 
+
+```{r,echo=FALSE}
+p = ggplot(data,aes(x = survey_internships,y=survey_salary))+
+  geom_bar(stat="summary", fun = "median")+
+  theme_bw()+
+  theme(axis.text.x=element_text(angle=90))
+p
 ```
 
 
-column {data-width = 300}
+column {data-width = 400}
 -----------------------------------------------------------------
 
-### Bell Curve
+### Bottom 20% Median Income, also considering adding internship placement % here as well
 
-```{r}
+```{r, echo=FALSE}
+library(fastDummies)
+data2<-dummy_columns(data, select_columns = c("GPA.Range"), 
+                  remove_first_dummy = TRUE, 
+                  remove_selected_columns = TRUE)
 
+data_bottom20 = data %>% 
+  filter(GPA.Range %in% c("2.00 - 2.49", "2.50 - 2.99","1.50 - 1.99"))
+m = median(data_bottom20$survey_salary, na.rm = TRUE)
+m
 ```
+
+
+
+
+### Top 15% Median Income
+```{r, echo=FALSE}
+data_top20 = data %>% 
+  filter(GPA.Range %in% c("3.50 - 4.00"))
+m = median(data_top20$survey_salary, na.rm = TRUE)
+m
+```
+
+
+### Mid 55% Median Income
+```{r, echo=FALSE}
+data_mid50 = data %>% 
+  filter(GPA.Range %in% c("3.00 - 3.49"))
+m = median(data_mid50$survey_salary, na.rm = TRUE)
+m
+```
+
 
 ### Insights
-This page analyzes the attributes that have an impact of job placement for FSB students. Through this analysis we identified thresholds for student employment as well has the impact internships have on job placement. We identified that students with a GPA less than XXX are not likely to get hired. We also identified if there was a correlation between the number of internships a student has and there job placement and starting salary. 
+This page analyzes the attributes that have an impact of job placement for FSB students. Through this analysis we identified that students with a higher GPA as well as a having multiple internships ultimately lead to a higher starting salary. The top 15% of students had a median starting salary of 60k whereas the middle 55% only had 57k. Students with no internship had a lower overall starting salary than those who did, and the bottom 20% of students also had a lower overall starting salary than the other 80%. 
 
 School Comparisons {data-orientation=columns}
 =================================================================
@@ -222,24 +356,112 @@ column {data-width = 500}
 
 ### Placement Rates
 
-```{r}
+Miami University: 97.7%
 
-```
+Notre Dame : 87%
+
+Ohio State University: 85.19%
+
+University of Cincinnati: 90%
+
+University of North Carolina: 94%
+
+University of Virginia: 82%
+
+Indiana University: 90.1%
+
+College of William and Mary: 89%
 
 ### Starting Salary
 
-```{r}
+Miami University: $60,921
 
-```
+Notre Dame : $70,600 
+
+Ohio State University: $59,684
+
+University of Cincinnati: $47,599
+
+University of Wisconsin: $51,843
+
+University of North Carolina: $56,830
+
+University of Virginia: $63,322
+
+Indiana University: $46,430
+
+College of William and Mary: $59,289
 
 column {data-width = 500}
 -----------------------------------------------------------------
 
 ### Student Locations 
 
-```{r}
+Notre Dame Regional Placement:
 
-```
+* Midwest – 47%
+* Northeast - 23%
+* West - 9%
+* Mid-Atlantic - 7%
+* South - 6%
+* Southwest - 6%
+* International - 2%
+
+Notre Dame Regional Placement:
+
+* Midwest - 70%
+* Northeast - 11%
+* West - 5%
+* Mid-Atlantic - 4%
+* South - 5%
+* Southwest - 4%
+* International - 2%
+
+William and Mary Regional Placement:
+
+* Midwest - 4%
+* Northeast - 15%
+* West - 5%
+* Mid-Atlantic - 60%
+* South - 8%
+* Southwest - 3%
+* International - 11%
+
+https://fisher.osu.edu/careers-recruiting/salary-outcome-data
+https://undergradcareers.nd.edu/assets/351131/fd_19_public_report.pdf
+https://www.uc.edu/campus-life/careereducation/about/publications/outcomes/2020.html
+https://careers.unc.edu/sites/careers.unc.edu/files/documents/FDS%202019.pdf
+https://career.virginia.edu/UniversityofVirginia-Class-2019
+https://uirr.iu.edu/facts-figures/outcomes/workforce-outcomes/Undergraduate-Post-Graduation-Outcomes-20192020.pdf
+https://www.wm.edu/offices/career/career-success-reports/pdfs/cc-careersuccessreport-2019-20.pdf
+
 
 ### Insights
 This page focuses on the comparisons of FSB to other schools. To conduct this comparison we looked at the difference in placement rate, starting salary, and location. 
+
+Insights {data-orientation=columns}
+=================================================================
+
+## Overview of the Data
+
+Add summary of Data, how it was collected, overview of cleaning process...
+
+## Insights
+
+-Students majoring in Business Analytics had the highest starting salaries (\$65,902) on average, followed by Information Systems (\$64,709) and Business Economics (\$61,136). 
+
+-Information Systems had the highest job placement percentage (75%) on average. 
+
+-Entrepreneurship majors had the highest percentage of students in the top GPA range (59%)
+
+-Students that graduated at the beginning of COVID (2019 Graduate) had a higher job placement percentage (68% in 2019 vs. 55% in 2020) but were paid lower salaries ($4,359.25 lower on average) than students that graduated a year later in 2020.
+
+-Students with a higher GPA as well as a having multiple internships ultimately lead to a higher starting salary. The top 15% of students had a median starting salary of 60k whereas the middle 55% only had 57k. Students with no internship had a lower overall starting salary than those who did, and the bottom 20% of students also had a lower overall starting salary than the other 80%.
+
+-The top state for employment was XX with XX students or XX% of all hires, followed by XX (XX students XX%), XX (XX students XX%) , XX (XX students XX%) , and XX (XX students XX%) respectively in the top 5. This analysis also includes a look at which cities contain which industries and an indepth analysis of the 4 C’s (Cleveland, Columbus, Cincinnati, and Chicago)
+
+-Add School Comparison Insights
+
+## Recommendations
+
+Add summary of recommendations going forward based on our groups analysis...
