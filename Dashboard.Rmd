@@ -14,12 +14,11 @@ knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE, cache = TRUE)
 rm(list = ls()) # clear global environment
 graphics.off() # close all graphics
 if(require(pacman)==FALSE) install.packages("pacman")
-pacman::p_load(DataExplorer,tidyverse,readxl,zoo,stargazer,kableExtra,skimr,plotly,ggpubr,vtable,tm, flexdashboard, fontawesome,fastDummies,naniar, ggmap, ggplot2, ggiraph, mapview,ggmap)
+pacman::p_load(DataExplorer,tidyverse,readxl,zoo,stargazer,kableExtra,skimr,plotly,ggpubr,vtable,tm, flexdashboard, fontawesome,fastDummies,naniar, ggmap, ggplot2, ggiraph, mapview,ggmap,knitr)
 
 #load data
 data=readRDS("FSB_BI_Survey_2019_2021.rds")
-
-
+install.packages("htmltools")
 ```
 
 Survey Overview {data-orientation=columns}
@@ -156,8 +155,6 @@ column {data-width = 600}
 ### Placement Map
 
 ```{r, echo=FALSE}
-
-
 data$citystate <- paste(data$survey_city, data$survey_state)
 
 data <- data %>%
