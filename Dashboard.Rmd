@@ -14,10 +14,11 @@ knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE, cache = TRUE)
 rm(list = ls()) # clear global environment
 graphics.off() # close all graphics
 if(require(pacman)==FALSE) install.packages("pacman")
-pacman::p_load(DataExplorer,tidyverse,readxl,zoo,stargazer,kableExtra,skimr,plotly,ggpubr,vtable,tm, flexdashboard, fontawesome,fastDummies)
+pacman::p_load(DataExplorer,tidyverse,readxl,zoo,stargazer,kableExtra,skimr,plotly,ggpubr,vtable,tm, flexdashboard, fontawesome,fastDummies,naniar, ggmap, ggplot2, ggiraph, mapview,ggmap,knitr)
 
 #load data
 data=readRDS("FSB_BI_Survey_2019_2021.rds")
+install.packages("htmltools")
 ```
 
 Survey Overview {data-orientation=columns}
@@ -154,10 +155,8 @@ column {data-width = 600}
 ### Placement Map
 
 ```{r, echo=FALSE}
-pacman::p_load(naniar, ggmap, ggplot2, ggiraph, mapview)
-
 data$citystate <- paste(data$survey_city, data$survey_state)
-library(naniar)
+
 data <- data %>%
   replace_with_na(replace = list(citystate = c("NA NA", "NA CA", "NA CO", "NA CT", "NA GA", "NA IL", "NA IN", "NA MA", "NA NY", "NA OH", "NA UT", "TBD", "NA Other", "NA MN", "International", "International BZ", "International IN", "International TR", "Remote OH", "Remote Other"
  )))
@@ -182,11 +181,7 @@ cities <- data %>% count(data$citystate)
 cities <- head(cities, - 1)
 cities = as.data.frame(cities, stringsAsFactors = FALSE)
 
-library(ggmap)
-library(ggplot2)
-library(ggiraph)
-library(ggmap)
-library(mapview)
+
 register_google(key = "AIzaSyD3OBbzHmL1rXtnavOLGANVIIveIst_xCE", write = TRUE)
 geocodes <- geocode(as.character(cities$`data$citystate`))
 cities_with_geocodes <- data.frame(cities[,1:2],geocodes)
