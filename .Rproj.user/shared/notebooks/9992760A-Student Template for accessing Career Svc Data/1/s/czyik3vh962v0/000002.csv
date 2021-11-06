@@ -1,0 +1,5 @@
+"0","data$survey_state[data$survey_state == ""VA (VA)""] <- ""VA"""
+"0","data$survey_state[data$survey_state == ""Remote""] <- ""Other"""
+"0","data$survey_state[data$survey_state == ""N/A""] <- ""Other"""
+"0","data$survey_state[data$survey_state == ""na""] <- ""Other"""
+"0","data$survey_state[data$survey_state == ""NA""] <- ""Other"""

@@ -1,0 +1,6 @@
+"0","rate=round(100*nrow(internraw)/800,0)"
+"0",""
+"0","gauge(rate, min = 0, max = 100, symbol = ""%"","
+"0","      gaugeSectors("
+"0","        success = c(80,100), warning = c(40,79), danger = c(0,39)"
+"0","      ))"

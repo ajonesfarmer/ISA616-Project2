@@ -1,0 +1,7 @@
+"0","knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE)"
+"0",""
+"0","#package intialization"
+"0","rm(list = ls()) # clear global environment"
+"0","graphics.off() # close all graphics"
+"0","if(require(pacman)==FALSE) install.packages(""pacman"")"
+"0","pacman::p_load(DataExplorer,tidyverse,readxl,zoo,stargazer,kableExtra,skimr,plotly,ggpubr,vtable,tm,h2o,naniar, dplyr)"

@@ -1,0 +1,7 @@
+"0","p=ggplot(internraw, "
+"0","         aes(x=reorder(x=intern_status, intern_status, function(x)-length(x))))+"
+"0","  geom_bar(color=""violet"", fill=""violet"")+"
+"0","  xlab(""Internship Status"")+"
+"0","  ylab(""Number of Responses"")+"
+"0","  theme_bw()"
+"0","ggplotly(p)"
