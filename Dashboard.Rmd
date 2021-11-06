@@ -17,7 +17,7 @@ if(require(pacman)==FALSE) install.packages("pacman")
 pacman::p_load(DataExplorer,tidyverse,readxl,zoo,stargazer,kableExtra,skimr,plotly,ggpubr,vtable,tm, flexdashboard, fontawesome,fastDummies,naniar, ggmap, ggplot2, ggiraph, mapview,ggmap,knitr)
 
 #load data
-data=readRDS("FSB_BI_Survey_2019_2021.rds")
+data=readRDS("clean_data.rds")
 install.packages("htmltools")
 ```
 
