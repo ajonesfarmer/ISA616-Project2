@@ -4,7 +4,7 @@ The purpose of this repository is to interact with GitHub to access the files fo
 
 ## Project Overview
 
-Annually, the FSB conducts a senior survey of graduates to learn of their employment status.  In addition, information is verified, by hand, using LinkedIn and employer survey information.  The data you are provided ('FSB_BI_Survey_2019_2021.csv') contains data on graduates for 2019, 2020, and 2021.  The data are merged from two sources:  the senior survey, and data from the Miami University database.  
+Annually, the FSB conducts a senior survey of graduates to learn of their employment status.  In addition, information is verified using LinkedIn and employer survey information.  The data you are provided ('FSB_BI_Survey_2019_2021.rds') contains data on graduates for 2019, 2020, and 2021.  The data are merged from two sources:  the senior survey, and data from the Miami University database.  
 
 The data are anonymized, however it is possible that if you look hard enough, you can identify students.  You are bound, ethically not to do so.  It is a strict ethical code that you will not discuss individual data points with ANYONE except for me and your team.  Failure to comply with this code of ethics will result in a failing grade in the course.  
 
