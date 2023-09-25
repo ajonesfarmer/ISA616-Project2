@@ -1,6 +1,6 @@
 # Overview of the Repository
 
-The purpose of this repository is to interact with GitHub to access the files for our second project in ISA 616-Fall 2021.  Below, I also include details about GitHub to help you in working in this environment.
+The purpose of this repository is to interact with GitHub to access the files for our second project in ISA 616.  Below, I also include details about GitHub to help you in working in this environment.
 
 ## Project Overview
 
@@ -10,7 +10,7 @@ The data are anonymized, however it is possible that if you look hard enough, yo
 
 ## Data Sources
 
-You have three years of data representing FSB graduates, including graduates in 2019, 2020, and 2021.  The dataset provided had 42 variables.  The source is either derived by me during data cleaning/mergin, from the Oracle Business Intelligence Enterprise Edition (OBIEE) maintained by Miami adminsitration, or from the self reported senior survey.  I have cleaned and merged the files into one file.  
+You have three years of data representing FSB graduates, including graduates in 2019, 2020, and 2021.  The dataset provided had 42 variables.  The source is either derived by me during data cleaning/merging, from the Oracle Business Intelligence Enterprise Edition (OBIEE) maintained by Miami adminsitration, or from the self reported senior survey.  I have cleaned and merged the files into one file.  
 
 1.  nmajor: numeric,derived, the number of majors 
 2.  major1: text, OBIEE, first major
